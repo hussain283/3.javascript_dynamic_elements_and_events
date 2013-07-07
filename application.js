@@ -4,22 +4,10 @@ $(document).ready(function() {
   $('.todo_list').sortable({cancel: 'a'});
 
   function bindEvents() {
-    // Bind functions which add, remove, and complete todos to the appropriate
-    // elements
-
-    $('.add').on('click',function(){
-      addTodo();
-    });
-
-    $('.todo_list').on('click','.complete',function(){
-      completeTodo(this);
-    });
-
-    $('.todo_list').on('click','.delete',function(){
-      removeTodo(this);
-    });
+    $('.add').on('click',addTodo);
+    $('.todo_list').on('click','a.complete',completeTodo);
+    $('.todo_list').on('click','a.delete',removeTodo);
   }
-
   //Create functions to add, remove and complete todos
 
   function addTodo() {
@@ -29,12 +17,12 @@ $(document).ready(function() {
     }
   }
 
-  function completeTodo(element) {
-    $(element).closest('div.todo').toggleClass('complete');
+  function completeTodo() {
+    $(this).closest('div.todo').toggleClass('complete');
   }
 
-  function removeTodo(element) {
-    $(element).closest('div.todo').fadeOut().queue(function(){
+  function removeTodo() {
+    $(this).closest('div.todo').fadeOut(function(){
       $(this).remove();
     });
   }
